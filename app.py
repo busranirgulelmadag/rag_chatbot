@@ -12,10 +12,22 @@ Gerekirse maddeler kullan.
 """
 
 def ensure_api_key():
+    from dotenv import load_dotenv
+    import os, streamlit as st
+
     load_dotenv()
-    if not os.getenv("GOOGLE_API_KEY"):
-        st.error("GOOGLE_API_KEY bulunamadı. Lütfen .env dosyasına ekleyin.")
+    key = os.getenv("GOOGLE_API_KEY", "")
+
+    # Streamlit Secrets'tan alıp ortam değişkenine yaz (Cloud için kritik)
+    if not key:
+        key = st.secrets.get("GOOGLE_API_KEY", "")
+        if key:
+            os.environ["GOOGLE_API_KEY"] = key
+
+    if not key:
+        st.error("GOOGLE_API_KEY bulunamadı. Lütfen Secrets'a TOML formatında ekleyin.")
         st.stop()
+
 
 def get_vectorstore():
     embeddings = GoogleGenerativeAIEmbeddings(model="text-embedding-004")
@@ -51,11 +63,16 @@ with col2:
     reindex = st.button("Veriyi Yeniden İndeksle (data/ değiştiyse)")
 
 if reindex:
-    import subprocess, sys
+    import subprocess, sys, os, streamlit as st
     with st.spinner("İndeksleniyor..."):
-        r = subprocess.run([sys.executable, "src/ingest.py"], capture_output=True, text=True)
-        st.code((r.stdout or "") + "\\n" + (r.stderr or ""))
+        env = os.environ.copy()
+        # Secrets'ta varsa ve env'e yazılmadıysa ekle
+        if "GOOGLE_API_KEY" in st.secrets and not env.get("GOOGLE_API_KEY"):
+            env["GOOGLE_API_KEY"] = st.secrets["GOOGLE_API_KEY"]
+        r = subprocess.run([sys.executable, "src/ingest.py"], capture_output=True, text=True, env=env)
+        st.code((r.stdout or "") + "\n" + (r.stderr or ""))
     st.success("İndeksleme bitti.")
+
 
 if run and user_q.strip():
     with st.spinner("Yanıt hazırlanıyor..."):

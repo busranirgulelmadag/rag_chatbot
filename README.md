@@ -9,6 +9,7 @@ Kısa, anlaşılır ve **kaynak parça** referanslı cevaplar veren; CSV/TXT ver
 ## 🖼️ Ön İzleme
 
 > Görselin görünmesi için **proje kökünde** `docs/mentalchat-ui.png` dosyası bulunmalıdır.
+![WhatsApp Görsel 2025-10-23 saat 02 49 14_a5497ab9](https://github.com/user-attachments/assets/ed2c7b0a-5e62-4248-8183-2b2b20374088)
 
 ![Uygulama ekran görüntüsü](docs/mentalchat-ui.png)
 

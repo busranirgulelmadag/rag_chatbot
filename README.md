@@ -39,7 +39,6 @@ Kısa, anlaşılır ve **kaynak parça** referanslı cevaplar veren; CSV/TXT ver
 
 ## 🧩 Mimari
 
-```mermaid
 flowchart LR
     U[👤 Kullanıcı] -->|Soru| UI[🖥️ Streamlit UI]
     UI -->|Arama| RET[🔎 Chroma Retriever (k)]

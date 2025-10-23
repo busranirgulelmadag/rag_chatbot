@@ -51,7 +51,7 @@ flowchart LR
 ##Veri Seti
 
     Varsayılan: data/Mental_Health_FAQ (1).csv (ruh sağlığı SSS)
-    İsteğe bağlı: data/ içerisine yeni CSV/TXT dosyaları ekleyin. Sonrasında Veriyi Yeniden İndeksle.
+    
 ##Kurulum (Yerel)
 
     python -m venv .venv
@@ -66,8 +66,7 @@ Bu kılavuz, projeyi yerelde çalıştırma, veri ekleme/indeksleme, Streamlit C
 1) Gereksinimler
 Python 3.10–3.12
 pip (Python paket yöneticisi)
-Google AI Studio’dan Gemini API anahtarı (Developer API)
-(Deploy için) GitHub ve Streamlit Community Cloud hesabı
+
 ##Çalıştırma
     python src\ingest.py     # data/ içeriğini indeksler (Chroma)
     streamlit run app.py     # arayüzü başlatır
@@ -144,27 +143,7 @@ Kullanıcı: Soru sorma, kaynak parçalarını görme.
 Yönetici (opsiyonel): Streamlit Secrets yönetimi (API key, opsiyonel APP_PASSWORD).
 Basit parola koruması istenirse Secrets’a APP_PASSWORD konur; uygulama yan panelde şifre isteyebilir.
 
-8) Başarı Ölçütleri (KPI) & Geri Bildirim
-Cevaplama kalitesi: Kullanıcı memnuniyeti/geri bildirim puanları (1–5).
-İlk denemede doğru yanıt oranı (%).
-Yanıt süresi (ortalama, p95).
-Hallucination şikâyet sayısı (düşmesi hedeflenir).
-Kullanım: Günlük/haftalık sorgu sayısı, tekrarlı kullanıcı oranı.
-Geri bildirim toplama (opsiyonel):
-Sonuç kartına “Faydalıydı / Faydalı değildi” kısa oylaması ve yorum alanı.
-Basit bir Google Form bağlantısı.
-
-9) Erişilebilirlik, Güvenlik ve Gizlilik
-Erişilebilirlik: Kısa başlıklar, madde işaretleri, klavye odaklı kullanım; metinlerin kontrastı korunur.
-Gizlilik: Public repo ise data/ herkes tarafından görülebilir. Hassas veri varsa private repo önerilir.
-Sır Yönetimi: API anahtarları .env/Secrets içinde tutulur; repoya girmez.
-Rate Limit: Gerekirse yanıt başına gecikme/limit eklenebilir (opsiyonel).
-
-10) Performans & Ölçeklenebilirlik (Kullanıcı Etkisi)
-Hız: k yükseldikçe yanıt biraz uzayabilir; 3–6 arası dengelidir.
-Büyük Veri: Chroma tek nodda onbinlerce parça ile çalışır. Daha büyük yükte dış vektör DB çözümlerine geçilebilir (PGVector, Pinecone gibi).
-
-11) SSS (Kullanıcı Gözüyle)
+8) SSS (Kullanıcı Gözüyle)
 “Veri ekledim ama görünmüyor?”
 → Veriyi Yeniden İndeksle butonuna basın.
 
@@ -186,10 +165,7 @@ Analitik: Sorgu/yanıt telemetrisi, kalite panosu
 Özet: MentalChat, veriye dayalı, kısa ve kaynaklı yanıtları sade bir arayüzle sunar. Son kullanıcı sadece soru sorar; operasyon ekibi data/ya dosya ekleyip tek tıkla indeksler. Böylece içeriğin güncelliği ve yanıtların doğruluğu kolayca korunur.
 ##Streamlit Cloud (Deploy)
 
-    Streamlit Cloud → New app (Repo: bu proje, Main file path: app.py)
-    Secrets (TOML):
-    GOOGLE_API_KEY = "YOUR_GEMINI_API_KEY"
-    App açılınca Veriyi Yeniden İndeksle butonuna bir kez basın.
+
     Canlı: https://mentalchat.streamlit.app/
 ##Yapı
 .
